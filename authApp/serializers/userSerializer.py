@@ -8,8 +8,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'password', 'name', 'email', 'account']
+
     def create(self, validated_data):
         accountData = validated_data.pop('account') 
+       # print(account_data)
         userInstance = User.objects.create(**validated_data) 
         Account.objects.create(user=userInstance, **accountData) 
         return userInstance
